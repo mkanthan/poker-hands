@@ -1,2 +1,0 @@
-class HandScore
-end
