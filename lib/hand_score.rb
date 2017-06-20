@@ -1,0 +1,2 @@
+class HandScore
+end
