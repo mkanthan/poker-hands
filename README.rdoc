@@ -13,9 +13,11 @@ This is a simple ruby script to evaluate how many times Player 1 is the winner i
 
 2) Run the full test suite - at the time of this writing, all tests should pass 100%
 
-  $rake
+  $ rake
 
-3) Run the parser and display the answer.
+== Running The Program
 
-  $rake poker
+Simply Run the parser and display the answer.
+
+  $ rake poker
 
