@@ -1,12 +1,17 @@
+require './lib/rank'
+
 class Hand
   ROYAL_SUM = 60
   HIGH_ACE_NUMBER = 14
+
+  attr_accessor :high_card
 
   def initialize(hand)
     @cards = hand.split
     @numbers = @cards.map { |c| to_integer(c[0]) }.sort
     @counts = @numbers.group_by{ |x| x }.map{|k, v| [k, v.length]}.to_h
     @suit = @cards.map { |c| c[1] }
+    @high_card = high_card_score
   end
 
   def rank
@@ -25,6 +30,7 @@ class Hand
     return Rank::THREE_OF_A_KIND  if (three_of_a_kind)
     return Rank::TWO_PAIR         if (has_three_counts && one_pair)
     return Rank::ONE_PAIR         if (one_pair)
+    return Rank::HIGH_CARD
   end
 
   private
@@ -60,5 +66,16 @@ class Hand
 
   def has_three_counts
     @counts.values.length == 3
+  end
+
+  def high_card_score
+    if @counts.values.length == 5
+      #then take the max key because there is either only high card or a straight w/high card
+      { high: @counts.keys.max, count: @counts[@counts.keys.max] }
+    else
+      #take the max value because there is x of kind - get the largest one
+      max_value = @counts.values.max
+      { high: @counts.key(max_value), count: max_value }
+    end
   end
 end

@@ -76,4 +76,16 @@ RSpec.describe Hand do
       expect(@hand.rank).to eq(Rank::ONE_PAIR)
     end
   end
+
+  describe "high_card" do
+    it "should return the high card and count of the 5 cards" do
+      @hand = Hand.new("KD JD QD TD AD")
+      expect(@hand.high_card).to eq({ high: 14, count: 1 })
+    end
+
+    it "should return the high card and counts of the x of a kind" do
+      @hand = Hand.new("4H AC 4C 4D 2D")
+      expect(@hand.high_card).to eq({ high: 4, count: 3 })
+    end
+  end
 end
